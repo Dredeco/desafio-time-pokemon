@@ -1,27 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { addPokemonToTeam } from '../../api/hasura';
 import './styles.sass'
-import { getPokemonData } from '../../api/pokemons';
+import { AppContext } from '../../context/AppContext';
 
 const Card = ({pokemon}: any) => {
-  const [pokemonDetails, setPokemonDetails] = useState(Object)
   const [isHover, setIsHover] = useState(false)
+  const {nameFilter} = useContext(AppContext)
 
   useEffect(() => {
-    const getDetails = async () => {
-      const {name, types, sprites} = await getPokemonData(pokemon)
-      const pokemonUpdated: IPokemon = {
-        name: name,
-        url: pokemon.url,
-        image: sprites.front_default,
-        types: [
-          {name: types[0].type.name},
-          {name: types[1]?.type.name || null},
-        ]
-      }
-      setPokemonDetails(pokemonUpdated)
-    }
-    getDetails();
-  }, [])
+  }, [nameFilter])
 
   function toTitleCase(str: string) {
       return str.replace(
@@ -32,19 +19,29 @@ const Card = ({pokemon}: any) => {
       );
   }
 
+  function addPokemonTeam(pkm: IPokemon) {
+    addPokemonToTeam(pkm);
+  }
+
   return (
     <li onMouseOver={() => setIsHover(true)} onMouseOut={() => setIsHover(false)} className='card__pokemon'>
       <p>{toTitleCase(pokemon.name)}</p>
-      <img src={pokemonDetails.image} alt='pokemon' />
+      <img src={pokemon.image} alt='pokemon' />
       <div className='types'> 
-        {pokemonDetails.types &&
-          pokemonDetails.types
-          .map((type: any) => type.name != null && <span key={type.name}>{type.name}</span>)}
-      </div>
+      {pokemon.types &&
+        pokemon.types
+        .map((type: any) => (
+          type.name != null &&
+          <span key={type.name} className={type.name.toLowerCase()}>{toTitleCase(type.name)}</span>
+        ))}
+
+</div>
 
       {isHover && 
       <div className='remove__card'>
-          <button>Remover</button>
+          <button onClick={() => addPokemonTeam(pokemon)}>
+            Adicionar
+          </button>
       </div>
       }
     </li>
