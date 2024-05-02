@@ -2,5 +2,8 @@ interface IPokemon {
     name: string;
     url: string;
     image?: string;
-    types?: []
+    types?: [
+        {name: string},
+        {name?: string},
+    ]
 }

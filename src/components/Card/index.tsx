@@ -4,20 +4,20 @@ import { getPokemonData } from '../../api/pokemons';
 
 const Card = ({pokemon}: any) => {
   const [pokemonDetails, setPokemonDetails] = useState(Object)
-  
+  const [isHover, setIsHover] = useState(false)
+
   useEffect(() => {
     const getDetails = async () => {
-      const {types, sprites} = await getPokemonData(pokemon)
-      const pokemonUpdated = {
-        name: pokemon.name,
+      const {name, types, sprites} = await getPokemonData(pokemon)
+      const pokemonUpdated: IPokemon = {
+        name: name,
         url: pokemon.url,
         image: sprites.front_default,
         types: [
           {name: types[0].type.name},
-          {name: types[1].type.name},
+          {name: types[1]?.type.name || null},
         ]
       }
-      console.log(pokemonUpdated)
       setPokemonDetails(pokemonUpdated)
     }
     getDetails();
@@ -33,17 +33,20 @@ const Card = ({pokemon}: any) => {
   }
 
   return (
-    <li className='card__pokemon'>
+    <li onMouseOver={() => setIsHover(true)} onMouseOut={() => setIsHover(false)} className='card__pokemon'>
       <p>{toTitleCase(pokemon.name)}</p>
-      <img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png' alt='pokemon' />
-      <div className='types'>  
-          <span>Eletric</span>
-          <span>Eletric</span>
+      <img src={pokemonDetails.image} alt='pokemon' />
+      <div className='types'> 
+        {pokemonDetails.types &&
+          pokemonDetails.types
+          .map((type: any) => type.name != null && <span key={type.name}>{type.name}</span>)}
       </div>
 
-      {/* <div className='remove__card'>
+      {isHover && 
+      <div className='remove__card'>
           <button>Remover</button>
-      </div> */}
+      </div>
+      }
     </li>
   )
 }
