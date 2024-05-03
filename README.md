@@ -1,6 +1,6 @@
 # 🚀 Desafio Bean Software
 
-O intuito desse desafio é construir uma pokedex em docker. Para consumir as informações foram usadas Axios, Hasura com GraphQL e o banco Postgres. Pode ser executado em formato web e mobile ( responsivo ).
+Este desafio tem como objetivo construir uma Pokedex em um ambiente Docker. Para consumir as informações, foram utilizadas as tecnologias Axios, Hasura com GraphQL e o banco de dados Postgres.
 
 ## 💻 Executando projeto
 
@@ -13,7 +13,7 @@ docker compose up -d
 ```
 ### Hasura GraphQL
 
-- ATENÇÃO: Necessário configurar o Hasura com GraphQL para salvar os pokemons no banco postgres, siga esses passos:
+- Necessário configurar o Hasura com GraphQL para salvar os pokemons no banco postgres, siga esses passos:
 
 #### Conexão Hasura com Postgres
 
@@ -61,11 +61,6 @@ HASURA_GRAPHQL_METADATA_DATABASE_URL
 - GraphQL
 - Postgres 
 
-## 📦 Dependências
-```
-npm install
-```
-
 ## 🎮 PokeAPI
 - https://pokeapi.co/api/v2/pokemon/?limit=151
 
@@ -81,10 +76,16 @@ docker compose down
 ```
 
 Build da imagem com a tag/nome (vite-react-app)
+```
 - docker build -t vite-react-app:latest .
+```
 
 Filtrar e exibir informações sobre imagens Docker que tenham "vite-react-app" em seu nome.
+```
 - docker images | grep vite-react-app
+```
 
-Rodando docker para desenvolvimento
-- docker run -p 8082:8082 vite-react-app:latest
+Rodando docker
+```
+- docker run -p 3000:3000 vite-react-app:latest
+```
