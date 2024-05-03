@@ -1,19 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Cards from '../Cards'
 import './styles.sass'
 import { getPokemonTeam } from '../../api/hasura'
+import { AppContext } from '../../context/AppContext'
 
 const TimePokemon = () => {
   const [team, setTeam] = useState([])
-
+  const { teamChanged } = useContext(AppContext)
 
   useEffect(() => {
-    const getData = async () => {
-      const getTeam = await getPokemonTeam()
-      setTeam(getTeam)
+    const getData = async () => {    
+        const getTeam = await getPokemonTeam()
+        setTeam([])
+        setTeam(getTeam)
     }
-    getData();
-  }, [])
+    getData()
+  }, [teamChanged])
+
   return (
     <div className='time__pokemons'>
       <h1>Monte o seu time</h1>

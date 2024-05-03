@@ -3,19 +3,19 @@ import { addPokemonToTeam, getPokemonTeam, removePokemonFromTeam } from '../../a
 import './styles.sass'
 import { AppContext } from '../../context/AppContext';
 
-const Card = ({pokemon}: any) => {
+const Card = ({ pokemon }: any) => {
   const [isHover, setIsHover] = useState(false)
   const [action, setAction] = useState('Adicionar')
   const [teamCount, setTeamCount] = useState(0)
-  const {teamChanged, setTeamChanged} = useContext(AppContext)
+  const { teamChanged, setTeamChanged } = useContext(AppContext)
 
   useEffect(() => {
-    setTeamChanged(false)
     const updateTeamCount = async () => {
       const count = await getPokemonTeam()
       setTeamCount(count.length)
     }
     updateTeamCount()
+    setTeamChanged(false)
   }, [teamChanged])
 
   useEffect(() => {
@@ -35,13 +35,16 @@ const Card = ({pokemon}: any) => {
 
   async function handlePokemonTeam(pkm: IPokemon) {
     if (action == 'Adicionar' && teamCount < 5) {
-      await addPokemonToTeam(pkm);
-      alert("Pokémon adicionado ao time!")
-      setTeamChanged(true)
+      console.log(pkm)
+      await addPokemonToTeam(pkm).then(() => {
+        alert("Pokémon adicionado ao time!")
+        setTeamChanged(true)
+      })
     } else if (action == 'Remover' && teamCount >= 0) {
-      await removePokemonFromTeam(pkm);
-      alert("Pokémon removido do time!")
-      setTeamChanged(true)
+      await removePokemonFromTeam(pkm).then(() => {
+        alert("Pokémon removido do time!")
+        setTeamChanged(true)    
+      })
     } else {
       alert('Limite do time atingido: 5 de 5')
     }

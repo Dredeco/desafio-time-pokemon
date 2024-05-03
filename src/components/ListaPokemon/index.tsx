@@ -61,7 +61,11 @@ const ListaPokemon = () => {
         </select>
       </div>
       <Cards pokemons={pokemons} />
-      <button onClick={handleLoadMore}>Ver mais</button>
+      {
+        nameFilter == '' && typeFilter == "Tipos" &&
+        <button onClick={handleLoadMore}>Ver mais</button>
+
+      }
     </div>
   )
 }

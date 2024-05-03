@@ -2,17 +2,11 @@ import { useEffect, useState } from 'react'
 import Card from '../Card'
 import './styles.sass'
 
-const Cards = ({pokemons}: any) => {
-  const [listaPokemon, setListaPokemon] = useState([]);
-
-  useEffect(() => {
-    setListaPokemon(pokemons)
-  }, [pokemons])
-
+const Cards = ({ pokemons }: any) => {
   return (
     <ul className='cards__pokemon'>
-      {listaPokemon ? (
-        listaPokemon.map((pk: IPokemon) => (
+      {pokemons? (
+        pokemons.map((pk: IPokemon) => (
           <div key={pk.id || pk.name}>
             <Card pokemon={pk} />
           </div>
