@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.sass'
 import { AppContextProvider } from './context/AppContext.tsx'
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AppContextProvider>

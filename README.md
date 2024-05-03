@@ -1,30 +1,90 @@
-# React + TypeScript + Vite
+# 🚀 Desafio Bean Software
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O intuito desse desafio é construir uma pokedex em docker. Para consumir as informações foram usadas Axios, Hasura com GraphQL e o banco Postgres. Pode ser executado em formato web e mobile ( responsivo ).
 
-Currently, two official plugins are available:
+## 💻 Executando projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Necessário ter o docker instalado na sua máquina.
+  
+Na raiz do projeto execute o comando:
 
-## Expanding the ESLint configuration
+```
+docker compose up -d
+```
+### Hasura GraphQL
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- ATENÇÃO: Necessário configurar o Hasura com GraphQL para salvar os pokemons no banco postgres, siga esses passos:
 
-- Configure the top-level `parserOptions` property like this:
+#### Conexão Hasura com Postgres
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1) Abra uma nova aba e digite
+
+```
+http://localhost:8080/console
+```
+2) Dentro do console clique na guia DATA
+3) Clique no botão Connect Database
+4) Escolha o banco Postgres e clique em Connect Existing Database
+5) em "Database name" digite:
+
+```
+pokemon
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+6) em "Connect Database via" marque : "Environment variable"
+7) Digite no campo "Environment variable":
+
+```
+HASURA_GRAPHQL_METADATA_DATABASE_URL
+```
+
+8) Clique em Connect Database
+9) Clique no database, depois na pasta public e clique no botão criar tabela
+10) A tabela irá conter 5 colunas com os dados:
+   - id: Int
+   - name: Text
+   - image: Text
+   - url: Text
+   - types: JSONB
+
+11) Marque id para ser a chave primária ( Primary Key )
+     
+
+## 🛠️ Tecnologias
+
+- ViteJS
+- React
+- Sass
+- Apollo
+- Docker
+- Hasura
+- GraphQL
+- Postgres 
+
+## 📦 Dependências
+```
+npm install
+```
+
+## 🎮 PokeAPI
+- https://pokeapi.co/api/v2/pokemon/?limit=151
+
+## 📄 Documentação docker
+- https://hasura.io/docs/latest/getting-started/docker-simple/
+
+### comandos docker
+
+Para interromper a execução digite:
+
+```
+docker compose down
+```
+
+Build da imagem com a tag/nome (vite-react-app)
+- docker build -t vite-react-app:latest .
+
+Filtrar e exibir informações sobre imagens Docker que tenham "vite-react-app" em seu nome.
+- docker images | grep vite-react-app
+
+Rodando docker para desenvolvimento
+- docker run -p 8082:8082 vite-react-app:latest

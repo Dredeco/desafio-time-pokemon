@@ -11,10 +11,8 @@ const Card = ({pokemon}: any) => {
 
   useEffect(() => {
     setTeamChanged(false)
-    console.log(teamChanged)
     const updateTeamCount = async () => {
       const count = await getPokemonTeam()
-      console.log(count.length)
       setTeamCount(count.length)
     }
     updateTeamCount()
