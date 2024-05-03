@@ -45,7 +45,7 @@ export const getPokemonData = async (pokemon: IPokemon) => {
 
 export const pokemonTypes = [
     {
-      name: "Todos"
+      name: "Tipos"
     },
     {
       name: "Normal"

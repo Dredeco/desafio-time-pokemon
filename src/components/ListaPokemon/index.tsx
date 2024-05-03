@@ -13,9 +13,8 @@ const ListaPokemon = () => {
   useEffect(() => {
     const getData = async () => {
       const data: any = await getPokemons()
-      console.log(typeFilter)
 
-      if(nameFilter != '' && typeFilter != '') {
+      if(nameFilter != '' && typeFilter != 'Tipos') {
         let filtered = await data.filter((pokemon: IPokemon) =>
           pokemon.name.includes(nameFilter.toLowerCase()))
         filtered = filtered.filter((pokemon: IPokemon) =>
@@ -25,7 +24,7 @@ const ListaPokemon = () => {
         const filtered = await data.filter((pokemon: IPokemon) =>
           pokemon.name.includes(nameFilter))
         setPokemons(filtered)
-      } else if (typeFilter != '' && typeFilter != "Todos") {
+      } else if (typeFilter != "Tipos") {
         const filtered = await data.filter((pokemon: IPokemon) =>
           pokemon.types?.[0].name.includes(typeFilter.toLowerCase()) || pokemon.types?.[1].name?.includes(typeFilter.toLowerCase()))
         setPokemons(filtered)
@@ -43,10 +42,10 @@ const ListaPokemon = () => {
   return (
     <div className='lista__pokemons'>
       <h1>Lista de Pokemons</h1>
-      <div>
+      <div className='filtros'>
         <input 
           type='text' 
-          placeholder='Filtrar'
+          placeholder='Filtrar por nome'
           value={nameFilter}
           onChange={(e) => setNameFilter(e.target.value)}
         />

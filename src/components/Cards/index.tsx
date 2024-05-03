@@ -13,12 +13,12 @@ const Cards = ({pokemons}: any) => {
     <ul className='cards__pokemon'>
       {listaPokemon ? (
         listaPokemon.map((pk: IPokemon) => (
-          <div key={pk.name}>
+          <div key={pk.id || pk.name}>
             <Card pokemon={pk} />
           </div>
         ))
       ) : (
-        <p>Nenhum Pokémon disponível</p>
+        <p>Adicione um Pokémon da lista abaixo.</p>
       )}
     </ul>
   )

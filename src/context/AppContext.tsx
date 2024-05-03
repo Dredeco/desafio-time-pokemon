@@ -5,6 +5,8 @@ export const AppContext = createContext({
     setNameFilter: (value: string) => {},
     typeFilter: '',
     setTypeFilter: (value: string) => {},
+    teamChanged: false,
+    setTeamChanged: (value: boolean) => {},
 })
 
 interface ProviderProps {
@@ -13,10 +15,11 @@ interface ProviderProps {
 
 export const AppContextProvider = ({children}: ProviderProps) => {
     const [nameFilter, setNameFilter] = useState('')
-    const [typeFilter, setTypeFilter] = useState('')
+    const [typeFilter, setTypeFilter] = useState('Tipos')
+    const [teamChanged, setTeamChanged] = useState(false)
 
     return (
-        <AppContext.Provider value={{nameFilter, setNameFilter, typeFilter, setTypeFilter}}>
+        <AppContext.Provider value={{nameFilter, setNameFilter, typeFilter, setTypeFilter, teamChanged, setTeamChanged}}>
             {children}
         </AppContext.Provider>
     )
