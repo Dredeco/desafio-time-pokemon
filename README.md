@@ -39,7 +39,8 @@ HASURA_GRAPHQL_METADATA_DATABASE_URL
 ```
 
 8) Clique em Connect Database
-9) Clique no database, depois na pasta public e clique no botão criar tabela
+9) Clique no database, depois na pasta "public" e clique no botão "Create Table"
+   - Nome da tabela: pokemons
 10) A tabela irá conter 5 colunas com os dados:
    - id: Int
    - name: Text
@@ -48,7 +49,44 @@ HASURA_GRAPHQL_METADATA_DATABASE_URL
    - types: JSONB
 
 11) Marque id para ser a chave primária ( Primary Key )
-     
+
+12) Clique em "Add Table" para finalizar a configuração.
+
+### Comandos docker
+
+1) Abra do CMD e navegue até a pasta do **desafio-time-pokemon**. Uma vez dentro da pasta, execute os comandos abaixo.
+
+Build da imagem com a tag/nome (vite-react-app)
+```
+docker build -t vite-react-app:latest .
+```
+
+Rodando a imagem com o Docker
+```
+docker run -p 3000:3000 vite-react-app:latest
+```
+
+Para interromper a execução digite:
+```
+docker compose down
+```
+
+### Comandos vite
+
+Para rodar o servidor de desenvolvimento com Vite:
+```
+npm run dev
+```
+
+Para construir o projeto para produção:
+```
+npm run build
+```
+
+Para visualizar a aplicação com um servidor de visualização do Vite:
+```
+npm run preview
+```
 
 ## 🛠️ Tecnologias
 
@@ -66,26 +104,3 @@ HASURA_GRAPHQL_METADATA_DATABASE_URL
 
 ## 📄 Documentação docker
 - https://hasura.io/docs/latest/getting-started/docker-simple/
-
-### comandos docker
-
-Para interromper a execução digite:
-
-```
-docker compose down
-```
-
-Build da imagem com a tag/nome (vite-react-app)
-```
-- docker build -t vite-react-app:latest .
-```
-
-Filtrar e exibir informações sobre imagens Docker que tenham "vite-react-app" em seu nome.
-```
-- docker images | grep vite-react-app
-```
-
-Rodando docker
-```
-- docker run -p 3000:3000 vite-react-app:latest
-```

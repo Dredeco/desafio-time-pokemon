@@ -35,7 +35,6 @@ const Card = ({ pokemon }: any) => {
 
   async function handlePokemonTeam(pkm: IPokemon) {
     if (action == 'Adicionar' && teamCount < 5) {
-      console.log(pkm)
       await addPokemonToTeam(pkm).then(() => {
         alert("Pokémon adicionado ao time!")
         setTeamChanged(true)

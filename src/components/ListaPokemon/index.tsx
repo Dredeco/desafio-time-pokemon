@@ -6,7 +6,7 @@ import './styles.sass'
 
 const ListaPokemon = () => {
   const [pokemons, setPokemons] = useState([])
-  const [limite, setLimite] = useState(9)
+  const [limite, setLimite] = useState(12)
   const {nameFilter, setNameFilter, typeFilter, setTypeFilter} = useContext(AppContext)
 
 
@@ -36,12 +36,12 @@ const ListaPokemon = () => {
   }, [limite, nameFilter, typeFilter])
 
   const handleLoadMore = () => {
-    setLimite(limite + 9)
+    setLimite(limite + 6)
 }
 
   return (
     <div className='lista__pokemons'>
-      <h1>Lista de Pokemons</h1>
+      <h1>Pokemons</h1>
       <div className='filtros'>
         <input 
           type='text' 

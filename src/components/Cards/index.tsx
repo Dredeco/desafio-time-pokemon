@@ -5,7 +5,7 @@ import './styles.sass'
 const Cards = ({ pokemons }: any) => {
   return (
     <ul className='cards__pokemon'>
-      {pokemons? (
+      {pokemons.length ? (
         pokemons.map((pk: IPokemon) => (
           <div key={pk.id || pk.name}>
             <Card pokemon={pk} />

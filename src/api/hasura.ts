@@ -2,21 +2,8 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 const client = new ApolloClient({
     uri: 'http://localhost:8080/v1/graphql',
-
     cache: new InMemoryCache(),
 });
-
-const INSERT_POKEMON_MUTATION = gql`
-    mutation InsertPokemon($name: String!, $url: String!, $image: String!, $types: jsonb!) {
-    insert_pokemons_one(object: {name: $name, url: $url, image: $image, types: $types}) {
-        id
-        name
-        url
-        image
-        types
-    }
-    }
-`;
 
 const GET_POKEMON_QUERY = gql`
   query GetPokemons {
@@ -29,6 +16,18 @@ const GET_POKEMON_QUERY = gql`
     }
   }
 `;
+
+export async function getPokemonTeam() {
+  try {
+    const { data } = await client.query({
+      query: GET_POKEMON_QUERY,
+      fetchPolicy: 'network-only'
+    });
+    return data.pokemons;
+  } catch (error) {
+    console.error(`Error fetching Pokémon: ${error}`);
+  }
+}
 
 const DELETE_POKEMON_MUTATION = gql`
   mutation DeletePokemon($id: Int!) {
@@ -46,11 +45,23 @@ export async function removePokemonFromTeam(pokemon: IPokemon) {
         id: pokemon.id,
       },
     });
-    return console.log(`Pokémon removed from team: ${data.delete_pokemons_by_pk.id}`);
+    console.log(`Pokémon removed from team: ${data.delete_pokemons_by_pk.id}`);
   } catch (error) {
     console.error(`Error removing Pokémon from team: ${error}`);
   }
 }
+
+const INSERT_POKEMON_MUTATION = gql`
+    mutation InsertPokemon($name: String!, $url: String!, $image: String!, $types: jsonb!) {
+    insert_pokemons_one(object: {name: $name, url: $url, image: $image, types: $types}) {
+        id
+        name
+        url
+        image
+        types
+    }
+    }
+`;
 
 export async function addPokemonToTeam(pokemon: IPokemon) {
     try {
@@ -63,20 +74,9 @@ export async function addPokemonToTeam(pokemon: IPokemon) {
                 types: pokemon.types,
             },
         });
-        return console.log(`Pokémon added to team: ${data.insert_pokemon_one.name}`);
+        console.log(`Pokémon added to team: ${data.insert_pokemon_one.name}`);
     } catch (error) {
         console.error(`Error adding Pokémon to team: ${error}`);
     }
 }
 
-export async function getPokemonTeam() {
-    try {
-      const { data } = await client.query({
-        query: GET_POKEMON_QUERY,
-        fetchPolicy: 'network-only'
-      });
-      return data.pokemons;
-    } catch (error) {
-      console.error(`Error fetching Pokémon: ${error}`);
-    }
-  }

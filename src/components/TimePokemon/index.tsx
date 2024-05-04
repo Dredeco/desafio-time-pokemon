@@ -19,7 +19,7 @@ const TimePokemon = () => {
 
   return (
     <div className='time__pokemons'>
-      <h1>Monte o seu time</h1>
+      <h1>PokeTeam</h1>
       <Cards pokemons={team} />
     </div>
   )
